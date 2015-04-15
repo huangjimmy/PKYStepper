@@ -1,6 +1,6 @@
 # PKYStepper [![CocoaPods](https://img.shields.io/cocoapods/v/PKYStepper.svg?style=flat)](http://cocoapods.org/?q=name%3APKYStepper) [![CocoaPods](https://img.shields.io/cocoapods/p/PKYStepper.svg?style=flat)](https://github.com/parakeety/PKYStepper) [![CocoaPods](https://img.shields.io/cocoapods/l/PKYStepper.svg?style=flat)](https://github.com/parakeety/PKYStepper/blob/master/LICENSE)
 
-PKYStepper is a customizable UIControl with stepper and label combined.
+PKYDropDownStepper is a customizable UIControl with stepper and label and dropdown combined derived from PKYStepper.
 
 <img src="screenshot.png" width="300px;" />
 
@@ -20,7 +20,7 @@ You can either install using cocoapods(recommended) or copying files manually.
 ### 1. Cocoapods(Recommended)
 In your Podfile, add a line
 ```ruby
-pod 'PKYStepper', '~> 0.1'
+pod 'PKYDropDownStepper', '~> 0.0.2'
 ```
 then, run `pod install`.
 

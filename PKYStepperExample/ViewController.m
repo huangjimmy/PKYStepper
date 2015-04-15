@@ -37,6 +37,7 @@
     self.plainStepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
         stepper.countLabel.text = [NSString stringWithFormat:@"Dogs: %@", @(count)];
     };
+    self.plainStepper.stepInterval = 0.1;
     [self.plainStepper setup];
     [self.view addSubview:self.plainStepper];
     
@@ -52,6 +53,7 @@
     self.noneStepper.valueChangedCallback = ^(PKYStepper *stepper, float count) {
         stepper.countLabel.text = count == stepper.minimum ? @"None" : [NSString stringWithFormat:@"Cats: %@", @(count)];
     };
+    self.noneStepper.stepInterval = 0.01;
     [self.noneStepper setup];
     [self.view addSubview:self.noneStepper];
     

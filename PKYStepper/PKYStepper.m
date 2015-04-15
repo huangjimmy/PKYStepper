@@ -75,6 +75,71 @@ static const float kButtonWidth = 44.0f;
     
     [self setLabelFont:[UIFont fontWithName:@"Avernir-Roman" size:14.0f]];
     [self setButtonFont:[UIFont fontWithName:@"Avenir-Black" size:24.0f]];
+    
+    self.valuePicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
+    self.valuePicker.dataSource = self;
+    self.valuePicker.delegate = self;
+    self.valuePickerContainer = [[UIView alloc] initWithFrame:CGRectZero];
+    self.valuePickerContainer.backgroundColor = [UIColor clearColor];
+    [self.valuePickerContainer addSubview:self.valuePicker];
+    
+    
+    self.countLabelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(countLabelTapped:)];
+    self.countLabelTapGestureRecognizer.enabled = YES;
+    self.countLabel.userInteractionEnabled = YES;
+    [self.countLabel addGestureRecognizer:self.countLabelTapGestureRecognizer];
+    
+    self.pickerViewTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(countLabelTapped:)];
+    self.valuePickerContainer.userInteractionEnabled = YES;
+    [self.valuePickerContainer addGestureRecognizer:self.pickerViewTapGestureRecognizer];
+    
+    self.valuePicker.backgroundColor = self.countLabel.backgroundColor == [UIColor clearColor]?[UIColor whiteColor]:self.countLabel.backgroundColor;
+    self.valuePicker.layer.borderColor = defaultColor.CGColor;
+    self.valuePicker.layer.borderWidth = 1.0;
+    self.valuePicker.layer.shadowOffset = CGSizeMake(1.0, 1.0);
+    self.valuePicker.layer.shadowOpacity = 1.0;
+    self.valuePicker.layer.shadowColor = [UIColor grayColor].CGColor;
+    self.pickerValue = self.value;
+    
+}
+
+
+
+- (IBAction)countLabelTapped:(id)sender{
+    NSLog(@"countLabelTapped:");
+    if(sender == self.countLabelTapGestureRecognizer){
+        [self.valuePickerContainer removeFromSuperview];
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        [keyWindow addSubview:self.valuePickerContainer];
+        CGPoint point = self.countLabel.frame.origin;
+        point = [keyWindow convertPoint:point fromView:self];
+        self.valuePicker.frame = CGRectMake(point.x, point.y+self.countLabel.frame.size.height, self.countLabel.frame.size.width, 162);
+        self.valuePickerContainer.frame = keyWindow.frame;
+        float row = (self.value - self.minimum)/self.stepInterval;
+        [self.valuePicker selectRow:row inComponent:0 animated:NO];
+        self.pickerValue = self.value;
+        
+        if (self.showHidePickerCallback) {
+            self.showHidePickerCallback(self, NO);
+        }
+        
+    }
+    else if (sender == self.pickerViewTapGestureRecognizer){
+        CGPoint point = [self.pickerViewTapGestureRecognizer locationInView:self.valuePickerContainer];
+        UIView *tappedView = [self.valuePickerContainer hitTest:point withEvent:nil];
+        if (tappedView == self.valuePicker) {
+            
+        }
+        else{
+            if (self.pickerValue != self.value) {
+                self.value = self.pickerValue;
+            }
+            [self.valuePickerContainer removeFromSuperview];
+            if (self.showHidePickerCallback) {
+                self.showHidePickerCallback(self, YES);
+            }
+        }
+    }
 }
 
 
@@ -117,6 +182,8 @@ static const float kButtonWidth = 44.0f;
 {
     self.layer.borderColor = color.CGColor;
     self.countLabel.layer.borderColor = color.CGColor;
+    self.valuePicker.layer.borderColor = color.CGColor;
+    self.valuePicker.layer.shadowColor = color.CGColor;
 }
 
 - (void)setBorderWidth:(CGFloat)width
@@ -209,6 +276,42 @@ static const float kButtonWidth = 44.0f;
 - (BOOL)isMaximum
 {
     return self.value == self.maximum;
+}
+
+#pragma picker view
+
+// returns the number of 'columns' to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return (self.maximum - self.minimum+self.stepInterval)/self.stepInterval;
+}
+
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
+    return 20;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    float precisionNum = ceil(1/self.stepInterval);
+    int precision = log10(precisionNum);
+    NSString *format = [NSString stringWithFormat:@"%%.%df", precision];
+    
+    return [NSString stringWithFormat:format,(self.minimum+row*self.stepInterval)];
+}
+
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    CGFloat value = self.minimum+row*self.stepInterval;
+    self.pickerValue = value;
+
+    if (self.pickerValue != self.value) {
+        self.value = self.pickerValue;
+    }
+    
 }
 
 @end

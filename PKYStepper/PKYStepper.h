@@ -19,12 +19,23 @@ typedef void (^PKYStepperIncrementedCallback)(PKYStepper *stepper, float newValu
 // called when value is decremented
 typedef void (^PKYStepperDecrementedCallback)(PKYStepper *stepper, float newValue);
 
+// called when value is decremented
+typedef void (^PKYStepperShowHidePickerCallback)(PKYStepper *stepper, BOOL hidden);
+
 IB_DESIGNABLE
-@interface PKYStepper : UIControl
+@interface PKYStepper : UIControl<UIPickerViewDataSource, UIPickerViewDelegate, UIGestureRecognizerDelegate>
+
 @property(nonatomic, strong) UILabel *countLabel;
 @property(nonatomic, strong) UIColor *labelColor;
 @property(nonatomic, strong) UIButton *incrementButton;
 @property(nonatomic, strong) UIButton *decrementButton;
+
+@property(nonatomic, strong) UIPickerView *valuePicker;
+@property(nonatomic, strong) UIView *valuePickerContainer;
+@property(nonatomic, strong) UITapGestureRecognizer *countLabelTapGestureRecognizer;
+@property(nonatomic, strong) UITapGestureRecognizer *pickerViewTapGestureRecognizer;
+
+@property(nonatomic) float pickerValue;
 
 @property(nonatomic) float value; // default: 0.0
 @property(nonatomic) float stepInterval; // default: 1.0
@@ -37,6 +48,7 @@ IB_DESIGNABLE
 @property(nonatomic, copy) PKYStepperValueChangedCallback valueChangedCallback;
 @property(nonatomic, copy) PKYStepperIncrementedCallback incrementCallback;
 @property(nonatomic, copy) PKYStepperDecrementedCallback decrementCallback;
+@property(nonatomic, copy) PKYStepperShowHidePickerCallback showHidePickerCallback;
 
 // call this method after setting value(s) and callback(s)
 // This method will call callback
