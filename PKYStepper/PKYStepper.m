@@ -107,13 +107,29 @@ static const float kButtonWidth = 44.0f;
 
 - (IBAction)countLabelTapped:(id)sender{
     NSLog(@"countLabelTapped:");
+    
+    __weak typeof(self) myself = self;
+    
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    
     if(sender == self.countLabelTapGestureRecognizer){
         [self.valuePickerContainer removeFromSuperview];
-        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-        [keyWindow addSubview:self.valuePickerContainer];
+        
         CGPoint point = self.countLabel.frame.origin;
         point = [keyWindow convertPoint:point fromView:self];
-        self.valuePicker.frame = CGRectMake(point.x, point.y+self.countLabel.frame.size.height, self.countLabel.frame.size.width, 162);
+        
+        myself.valuePicker.transform = CGAffineTransformIdentity;
+        self.valuePicker.frame = CGRectMake(point.x, point.y+self.countLabel.frame.size.height-162/2, self.countLabel.frame.size.width, 162);
+        myself.valuePicker.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 0.01);
+        
+        [keyWindow addSubview:self.valuePickerContainer];
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            myself.valuePicker.transform = CGAffineTransformIdentity;
+            myself.valuePicker.frame = CGRectMake(point.x, point.y+self.countLabel.frame.size.height, self.countLabel.frame.size.width, 162);
+            
+        }];
+        
         self.valuePickerContainer.frame = keyWindow.frame;
         float row = (self.value - self.minimum)/self.stepInterval;
         [self.valuePicker selectRow:row inComponent:0 animated:NO];
@@ -134,10 +150,22 @@ static const float kButtonWidth = 44.0f;
             if (self.pickerValue != self.value) {
                 self.value = self.pickerValue;
             }
-            [self.valuePickerContainer removeFromSuperview];
-            if (self.showHidePickerCallback) {
-                self.showHidePickerCallback(self, YES);
-            }
+            
+            point = self.countLabel.frame.origin;
+            point = [keyWindow convertPoint:point fromView:self];
+            
+            [UIView animateWithDuration:0.2 animations:^{
+                myself.valuePicker.transform = CGAffineTransformIdentity;
+                myself.valuePicker.frame = CGRectMake(point.x, point.y+myself.countLabel.frame.size.height-162/2, myself.countLabel.frame.size.width, 162);
+                myself.valuePicker.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 0.01);
+            } completion:^(BOOL finished) {
+                [myself.valuePickerContainer removeFromSuperview];
+                if (myself.showHidePickerCallback) {
+                    myself.showHidePickerCallback(myself, YES);
+                }
+            }];
+            
+            
         }
     }
 }
