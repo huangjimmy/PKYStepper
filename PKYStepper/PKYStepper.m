@@ -156,7 +156,7 @@ static const float kButtonWidth = 44.0f;
             point = [keyWindow convertPoint:point fromView:self];
             
             [UIView animateWithDuration:0.2 animations:^{
-                myself.valuePickerWrapper.frame = CGRectMake(point.x, point.y+myself.countLabel.frame.size.height+13, myself.countLabel.frame.size.width, 0);
+                myself.valuePickerWrapper.frame = CGRectMake(point.x, point.y+myself.countLabel.frame.size.height, myself.countLabel.frame.size.width, 0);
             } completion:^(BOOL finished) {
                 [myself.valuePickerContainer removeFromSuperview];
                 if (myself.showHidePickerCallback) {
