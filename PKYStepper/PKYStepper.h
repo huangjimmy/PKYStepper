@@ -31,6 +31,7 @@ IB_DESIGNABLE
 @property(nonatomic, strong) UIButton *decrementButton;
 
 @property(nonatomic, strong) UIPickerView *valuePicker;
+@property(nonatomic, strong) UIView *valuePickerWrapper;
 @property(nonatomic, strong) UIView *valuePickerContainer;
 @property(nonatomic, strong) UITapGestureRecognizer *countLabelTapGestureRecognizer;
 @property(nonatomic, strong) UITapGestureRecognizer *pickerViewTapGestureRecognizer;
