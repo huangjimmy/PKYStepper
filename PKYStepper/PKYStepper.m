@@ -81,7 +81,10 @@ static const float kButtonWidth = 44.0f;
     self.valuePicker.delegate = self;
     self.valuePickerContainer = [[UIView alloc] initWithFrame:CGRectZero];
     self.valuePickerContainer.backgroundColor = [UIColor clearColor];
-    [self.valuePickerContainer addSubview:self.valuePicker];
+    self.valuePickerWrapper = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.valuePickerContainer addSubview:self.valuePickerWrapper];
+    [self.valuePickerWrapper addSubview:self.valuePicker];
+    self.valuePickerWrapper.clipsToBounds = YES;
     
     
     self.countLabelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(countLabelTapped:)];
@@ -117,16 +120,14 @@ static const float kButtonWidth = 44.0f;
         
         CGPoint point = self.countLabel.frame.origin;
         point = [keyWindow convertPoint:point fromView:self];
-        
-        myself.valuePicker.transform = CGAffineTransformIdentity;
-        self.valuePicker.frame = CGRectMake(point.x, point.y+self.countLabel.frame.size.height-162/2, self.countLabel.frame.size.width, 162);
-        myself.valuePicker.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 0.01);
+#define PICKER_H 162
+        self.valuePicker.frame = CGRectMake(0, -PICKER_H/2+13, self.countLabel.frame.size.width, PICKER_H);
+        self.valuePickerWrapper.frame = CGRectMake(point.x, point.y+self.countLabel.frame.size.height, self.countLabel.frame.size.width, 0);
         
         [keyWindow addSubview:self.valuePickerContainer];
         
         [UIView animateWithDuration:0.2 animations:^{
-            myself.valuePicker.transform = CGAffineTransformIdentity;
-            myself.valuePicker.frame = CGRectMake(point.x, point.y+self.countLabel.frame.size.height, self.countLabel.frame.size.width, 162);
+            self.valuePickerWrapper.frame = CGRectMake(point.x, point.y+myself.countLabel.frame.size.height, myself.countLabel.frame.size.width, PICKER_H/2+13);
             
         }];
         
@@ -155,9 +156,7 @@ static const float kButtonWidth = 44.0f;
             point = [keyWindow convertPoint:point fromView:self];
             
             [UIView animateWithDuration:0.2 animations:^{
-                myself.valuePicker.transform = CGAffineTransformIdentity;
-                myself.valuePicker.frame = CGRectMake(point.x, point.y+myself.countLabel.frame.size.height-162/2, myself.countLabel.frame.size.width, 162);
-                myself.valuePicker.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 0.01);
+                myself.valuePickerWrapper.frame = CGRectMake(point.x, point.y+myself.countLabel.frame.size.height+13, myself.countLabel.frame.size.width, 0);
             } completion:^(BOOL finished) {
                 [myself.valuePickerContainer removeFromSuperview];
                 if (myself.showHidePickerCallback) {
