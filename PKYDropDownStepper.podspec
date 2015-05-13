@@ -9,8 +9,8 @@ Pod::Spec.new do |s|
   s.author       = { "yohei okada" => "okada.yohei@gmail.com", "jimmy huang" => "jimmy.s.huang@gmail.com" }
   s.homepage     = "https://github.com/huangjimmy/PKYStepper"
   s.platform     = :ios
-  s.ios.deployment_target = "6.0"
-  s.source       = { :git => "https://github.com/huangjimmy/PKYStepper.git", :tag => '0.0.4' }
+  s.ios.deployment_target = "7.0"
+  s.source       = { :git => "https://github.com/huangjimmy/PKYStepper.git", :tag => '0.0.5' }
   s.default_subspec     = 'Core'
   s.frameworks = "Foundation", "UIKit", "QuartzCore"
   s.requires_arc = true
@@ -21,7 +21,9 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'React' do |ss|
+    ss.ios.deployment_target = "7.0"
     ss.dependency         'PKYDropDownStepper/Core'
+    ss.dependency         'React/Core'
     ss.frameworks       = "JavaScriptCore"
     ss.source_files     = "RCTPKYStepper/**/*.{h,m}"
   end
