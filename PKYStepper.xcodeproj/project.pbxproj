@@ -19,6 +19,8 @@
 		47EC1A0E1A63A7B5009A8D6F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47EC1A071A63A7B5009A8D6F /* Info.plist */; };
 		47EC1A0F1A63A7B5009A8D6F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC1A081A63A7B5009A8D6F /* main.m */; };
 		47EC1A101A63A7B5009A8D6F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47EC1A0A1A63A7B5009A8D6F /* ViewController.m */; };
+		A964A315AB3D561DA6E420B5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F990F5C0CEA106D27721DDAD /* libPods.a */; };
+		BF12A0A61AF9E65400188018 /* PKY_RCTViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BF12A0A51AF9E65400188018 /* PKY_RCTViewManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,11 @@
 		47EC1A081A63A7B5009A8D6F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PKYStepperExample/main.m; sourceTree = SOURCE_ROOT; };
 		47EC1A091A63A7B5009A8D6F /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = PKYStepperExample/ViewController.h; sourceTree = SOURCE_ROOT; };
 		47EC1A0A1A63A7B5009A8D6F /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = PKYStepperExample/ViewController.m; sourceTree = SOURCE_ROOT; };
+		9AB4F3B5CBF71CFA57E496DE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		BF12A0A41AF9E65400188018 /* PKY_RCTViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKY_RCTViewManager.h; sourceTree = "<group>"; };
+		BF12A0A51AF9E65400188018 /* PKY_RCTViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKY_RCTViewManager.m; sourceTree = "<group>"; };
+		D53FD9E2DEECCC2391916951 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		F990F5C0CEA106D27721DDAD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A964A315AB3D561DA6E420B5 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,10 +105,13 @@
 		4752BC091A60B89A00A31EE5 = {
 			isa = PBXGroup;
 			children = (
+				BF12A0A31AF9E60B00188018 /* RCTPKYStepper */,
 				4722A6621A63A73E00A8B9A5 /* PKYStepperExample */,
 				4752BC3B1A60B91200A31EE5 /* PKYStepper */,
 				4752BC2E1A60B89A00A31EE5 /* PKYStepperTests */,
 				4752BC131A60B89A00A31EE5 /* Products */,
+				5EFA45C783E598C5AE62AE43 /* Pods */,
+				519F30F6C1140454D721AF57 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -139,6 +150,32 @@
 			name = PKYStepper;
 			sourceTree = "<group>";
 		};
+		519F30F6C1140454D721AF57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F990F5C0CEA106D27721DDAD /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5EFA45C783E598C5AE62AE43 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9AB4F3B5CBF71CFA57E496DE /* Pods.debug.xcconfig */,
+				D53FD9E2DEECCC2391916951 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BF12A0A31AF9E60B00188018 /* RCTPKYStepper */ = {
+			isa = PBXGroup;
+			children = (
+				BF12A0A41AF9E65400188018 /* PKY_RCTViewManager.h */,
+				BF12A0A51AF9E65400188018 /* PKY_RCTViewManager.m */,
+			);
+			path = RCTPKYStepper;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -146,9 +183,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4752BC351A60B89A00A31EE5 /* Build configuration list for PBXNativeTarget "PKYStepper" */;
 			buildPhases = (
+				B571BF8C2F09824ED7F3D98C /* Check Pods Manifest.lock */,
 				4752BC0E1A60B89A00A31EE5 /* Sources */,
 				4752BC0F1A60B89A00A31EE5 /* Frameworks */,
 				4752BC101A60B89A00A31EE5 /* Resources */,
+				292AA4EA9E3C4461A567D686 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -236,12 +275,46 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		292AA4EA9E3C4461A567D686 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B571BF8C2F09824ED7F3D98C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4752BC0E1A60B89A00A31EE5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				47EC1A101A63A7B5009A8D6F /* ViewController.m in Sources */,
+				BF12A0A61AF9E65400188018 /* PKY_RCTViewManager.m in Sources */,
 				475FE0BA1A7618740025EB94 /* TableViewController.m in Sources */,
 				4722A6771A63A76400A8B9A5 /* PKYStepper.m in Sources */,
 				475FE0B51A7616BA0025EB94 /* StoryboardViewController.m in Sources */,
@@ -349,6 +422,7 @@
 		};
 		4752BC361A60B89A00A31EE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9AB4F3B5CBF71CFA57E496DE /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/PKYStepperExample/Info.plist";
@@ -359,6 +433,7 @@
 		};
 		4752BC371A60B89A00A31EE5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D53FD9E2DEECCC2391916951 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/PKYStepperExample/Info.plist";

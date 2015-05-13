@@ -21,6 +21,15 @@ static const float kButtonWidth = 44.0f;
 @implementation PKYStepper
 
 #pragma mark initialization
+
+- (instancetype)init{
+    if (self = [super initWithFrame:CGRectZero])
+    {
+        [self commonInit];
+    }
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame])
@@ -190,6 +199,7 @@ static const float kButtonWidth = 44.0f;
     {
         self.valueChangedCallback(self, self.value);
     }
+    
 }
 
 - (CGSize)sizeThatFits:(CGSize)size
@@ -233,6 +243,17 @@ static const float kButtonWidth = 44.0f;
     self.countLabel.font = font;
 }
 
+- (void)setButtonTextColor:(UIColor *)color
+{
+    [self.incrementButton setTitleColor:color forState:UIControlStateNormal];
+    [self.decrementButton setTitleColor:color forState:UIControlStateNormal];
+}
+
+- (void)setButtonDisabledTextColor:(UIColor *)color{
+    [self.incrementButton setTitleColor:color forState:UIControlStateDisabled];
+    [self.decrementButton setTitleColor:color forState:UIControlStateDisabled];
+}
+
 - (void)setButtonTextColor:(UIColor *)color forState:(UIControlState)state
 {
     [self.incrementButton setTitleColor:color forState:state];
@@ -254,11 +275,13 @@ static const float kButtonWidth = 44.0f;
     {
         self.decrementButton.hidden = [self isMinimum];
     }
+    [self.decrementButton setEnabled:![self isMinimum]];
     
     if (self.hidesIncrementWhenMaximum)
     {
         self.incrementButton.hidden = [self isMaximum];
     }
+    [self.incrementButton setEnabled:![self isMaximum]];
     
     if (self.valueChangedCallback)
     {
